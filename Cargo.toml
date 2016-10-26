@@ -12,7 +12,7 @@ rustc-serialize = "*"
 [dependencies.mysql]
 version = "*"
 default-features = false
-features = ["pipe"]
+features = ["socket"]
 
 [features]
 default = []
