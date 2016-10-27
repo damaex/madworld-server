@@ -1,8 +1,17 @@
 language: rust
+
+os:
+  - linux
+  - osx
+
 rust:
   - stable
   - beta
   - nightly
+
 matrix:
   allow_failures:
     - rust: nightly
+
+after_success:
+  - coveralls
