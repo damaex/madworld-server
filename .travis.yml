@@ -2,14 +2,6 @@ sudo: false
 
 language: rust
 
-addons:
-  apt:
-    packages:
-      - libcurl4-openssl-dev
-      - libelf-dev
-      - libdw-dev
-      - binutils-dev
-
 os:
   - linux
   - osx
@@ -24,29 +16,14 @@ matrix:
     - rust: nightly
 
 before_install:
-  - |
-      if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - sudo apt-get update
 
-install:
-  - |
-      if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install sdl; fi
-
-before_script:
-  # load travis-cargo
-  - |
-      pip install 'travis-cargo<0.2' --user &&
-      if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$HOME/.local/bin/:$PATH; fi
-      if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH=$HOME/Library/Python/2.7/bin:$PATH; fi
-
-script:
-  - |
-      travis-cargo build &&
-      travis-cargo test &&
-      travis-cargo bench &&
-      travis-cargo --only stable doc
-
-after_success:
-  - travis-cargo coveralls --no-sudo --verify
+after_success: |
+                 sudo apt-get install libcurl4-openssl-dev libelf-dev libdw-dev &&
+                 wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
+                 tar xzf master.tar.gz && mkdir kcov-master/build && cd kcov-master/build && cmake .. && make &&
+                 sudo make install && cd ../.. &&
+                 kcov --coveralls-id=$TRAVIS_JOB_ID --exclude-pattern=/.cargo target/kcov target/debug/madworld_server-*
 
 env:
   global:
