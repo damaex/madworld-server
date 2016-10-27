@@ -23,10 +23,20 @@ matrix:
   allow_failures:
     - rust: nightly
 
+before_install:
+  - |
+      if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+
+install:
+  - |
+      if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install sdl; fi
+
 before_script:
+  # load travis-cargo
   - |
       pip install 'travis-cargo<0.2' --user &&
-      export PATH=$HOME/.local/bin:$PATH
+      if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$HOME/.local/bin/:$PATH; fi
+      if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH=$HOME/Library/Python/2.7/bin:$PATH; fi
 
 script:
   - |
@@ -40,4 +50,4 @@ after_success:
 
 env:
   global:
-    - TRAVIS_CARGO_NIGHTLY_FEATURE=nightly
+    - TRAVIS_CARGO_NIGHTLY_FEATURE="nightly-testing"
