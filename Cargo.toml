@@ -9,10 +9,15 @@ clap = "*"
 env_logger = "*"
 rustc-serialize = "*"
 
-[dependencies.mysql]
+[target.'cfg(any(unix, macos))'.dependencies.mysql]
 version = "*"
 default-features = false
 features = ["socket"]
+
+[target.'cfg(windows)'.dependencies.mysql]
+version = "*"
+default-features = false
+features = ["pipe"]
 
 [features]
 default = []
