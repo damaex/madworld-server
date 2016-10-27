@@ -14,4 +14,4 @@ matrix:
     - rust: nightly
 
 after_success:
-  - travis-cargo --only stable coveralls --no-sudo --verify
+  - travis-cargo coveralls --no-sudo
