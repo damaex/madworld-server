@@ -1,7 +1,6 @@
-[![Stories in Ready](https://badge.waffle.io/damaex/madworld-server.png?label=ready&title=Ready)](https://waffle.io/damaex/madworld-server)
 #MadWorld GameEngine Server
 
-[![Build Status](https://travis-ci.org/damaex/madworld-server.svg?branch=master)](https://travis-ci.org/damaex/madworld-server)
+[![Build Status](https://travis-ci.org/damaex/madworld-server.svg?branch=master)](https://travis-ci.org/damaex/madworld-server) [![Stories in Ready](https://badge.waffle.io/damaex/madworld-server.png?label=ready&title=Ready)](https://waffle.io/damaex/madworld-server)
 
 ##Building
 All dependencies are managed by Cargo, so just:
