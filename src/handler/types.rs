@@ -1,12 +1,13 @@
 use std::fmt;
 
+#[derive(Debug, PartialEq, Eq)]
 pub enum MessageMainType {
     LOGIN = 0,
     TALK = 1,
     ACTION = 2,
 }
 
-#[derive(RustcDecodable, RustcEncodable)]
+#[derive(RustcDecodable, RustcEncodable, Debug, PartialEq, Eq)]
 pub struct Message {
     pub main: i32,
     pub sub: i32,

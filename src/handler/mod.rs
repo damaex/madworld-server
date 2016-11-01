@@ -2,6 +2,7 @@ use super::rustc_serialize::json::{self};
 use super::ws;
 
 mod types;
+mod database;
 
 pub struct Server {
     pub out: ws::Sender,
