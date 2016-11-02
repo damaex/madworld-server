@@ -2,6 +2,8 @@ extern crate mysql;
 
 use std::fmt;
 
+struct LoginError {}
+
 #[derive(Debug, PartialEq, Eq)]
 enum Direction {
     LEFT = 0,
@@ -58,8 +60,8 @@ impl DatabaseWorker {
         }
     }
 
-    fn login(&self, mail: String, key: String) -> User {
-        User {
+    fn login(&self, mail: String, key: String) -> Result<User, LoginError> {
+        Ok(User {
             id: 0,
             mail: mail,
             name: key,
@@ -68,6 +70,6 @@ impl DatabaseWorker {
                 y: 0,
                 direction: Direction::DOWN,
             }
-        }
+        })
     }
 }
