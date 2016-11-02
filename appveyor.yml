@@ -16,7 +16,7 @@ build: false
 
 before_test:
 - ps: >-
-    $tomlPath= $PSScriptRoot+"\Cargo.toml"
+    $tomlPath= "Cargo.toml"
 
     $newText = ([System.IO.File]::ReadAllText($tomlPath)).Replace('features = ["socket"]', 'features = ["pipe"]')
 
