@@ -14,5 +14,12 @@ install:
 
 build: false
 
+before_test:
+- ps: >-
+    $tomlPath="Cargo.toml"
+    $newText = ([System.IO.File]::ReadAllText($tomlPath)).Replace("features = ["socket"]", "features = ["pipe"]")
+
+    [System.IO.File]::WriteAllText($tomlPath, $newText)
+
 test_script:
   - cargo test --verbose
