@@ -1,4 +1,5 @@
 extern crate mysql;
+
 use std::fmt;
 
 #[derive(Debug, PartialEq, Eq)]
@@ -11,8 +12,8 @@ enum Direction {
 
 #[derive(Debug, PartialEq, Eq)]
 struct Position {
-    x:  i32,
-    y:  i32,
+    x: i32,
+    y: i32,
     direction: Direction,
 }
 
@@ -25,10 +26,10 @@ impl fmt::Display for Position {
 
 #[derive(Debug, PartialEq, Eq)]
 struct User {
-    id:         i32,
-    mail:       String,
-    name:       String,
-    position:   Position,
+    id: i32,
+    mail: String,
+    name: String,
+    position: Position,
 }
 
 impl fmt::Display for User {
@@ -39,10 +40,24 @@ impl fmt::Display for User {
 }
 
 pub struct DatabaseWorker {
-
+    pool:       mysql::Pool,
 }
 
 impl DatabaseWorker {
+    pub fn new(host: String, database: String, user: String, password: String, port: u16) -> DatabaseWorker {
+        let mut builder = mysql::OptsBuilder::new();
+
+        builder.ip_or_hostname(Some(host))
+            .db_name(Some(database))
+            .user(Some(user))
+            .pass(Some(password))
+            .tcp_port(port);
+
+        DatabaseWorker {
+            pool: mysql::Pool::new(builder).unwrap(),
+        }
+    }
+
     fn login(&self, mail: String, key: String) -> User {
         User {
             id: 0,
